@@ -1,32 +1,43 @@
 from clases import Pokemon
 from conf import base_stats
-from manejo_archivos import write_types
+from manejo_archivos import *
 
 resp = input('Desea actualizar la información? (y/n): ')
 if resp.lower() == 'y':
-    from consultas_api import get_pokemon_type, get_pokemon_list
-    TIPOS_POKEMON = get_pokemon_type()
-    POKEMONS = get_pokemon_list()
+    from consultas_api import *
+    TIPOS_POKEMON = get_pokemon_types()
+    POKEMON_LIST = get_pokemon_list()
+    POKEMONS = get_pokemon_data(POKEMON_LIST)
     write_types(TIPOS_POKEMON)
+    write_pokemons(POKEMONS)
 else:
-    import json
-    from pathlib import Path
-    ruta = Path(__file__).resolve().parent
-    with open(ruta.joinpath('archivos').joinpath('types.json')) as json_file:
-        TIPOS_POKEMON = json.load(json_file)['types']
+    TIPOS_POKEMON = read_types()
+    POKEMONS = read_pokemons()
 
-print(TIPOS_POKEMON)
+pokemon_ids = [1, 4, 7]
+pokemons = list()
 
-# pokemons = [
-#     Pokemon(1, 'bulbasaur', [TIPOS_POKEMON[11], TIPOS_POKEMON[3]], ['tackle', 'vine whip'], base_stats(45, 49, 49, 65, 65, 45)),
-#     Pokemon(4, 'charmander', [TIPOS_POKEMON[9]], ['growl', 'scratch'], base_stats(39, 52, 43, 60, 50, 65)),
-#     Pokemon(7, 'squirtle', [TIPOS_POKEMON[10]], ['growl', 'scratch'], base_stats(44, 48, 65, 50, 64, 43))
-# ]
+for pokemon_id in pokemon_ids:
+    pokemons.append(
+        Pokemon(
+            pokemon_id,
+            POKEMONS[str(pokemon_id)]['name'],
+            POKEMONS[str(pokemon_id)]['types'],
+            base_stats(
+                POKEMONS[str(pokemon_id)]['stats']['hp'],
+                POKEMONS[str(pokemon_id)]['stats']['attack'],
+                POKEMONS[str(pokemon_id)]['stats']['defense'],
+                POKEMONS[str(pokemon_id)]['stats']['special-attack'],
+                POKEMONS[str(pokemon_id)]['stats']['special-defense'],
+                POKEMONS[str(pokemon_id)]['stats']['speed']
+            )
+        )
+    )
 
-# for pokemon in pokemons:
-#     print(pokemon.get_info())
-#     print("ATTACKS")
-#     print(pokemon.get_attacks())
-#     print("STATS")
-#     print(pokemon.get_stats())
-#     print("\n==================\n")
+for pokemon in pokemons:
+    print(pokemon.get_info())
+    # print("ATTACKS")
+    # print(pokemon.get_attacks())
+    print("STATS")
+    print(pokemon.get_stats())
+    print("\n==================\n")

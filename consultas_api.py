@@ -5,7 +5,7 @@ import json
 # URL base para consultas api
 URL = 'https://pokeapi.co/api/v2/'
 
-def get_pokemon_type():
+def get_pokemon_types():
     response = requests.get(URL + '/type')
     response = response.content
     response = json.loads(response)
@@ -42,8 +42,28 @@ def get_pokemon_list():
     return pokemons
 
 def get_pokemon_data(pokemons):
-    pass
-
+    data_pokemons = dict()
+    for pokemon in pokemons:
+        response = requests.get(URL + '/pokemon/' + pokemon)
+        response = response.content
+        response = json.loads(response)
+        # Se extraen lo datos
+        stats = dict()
+        for stat in response['stats']:
+            stats[stat['stat']['name']] = stat['base_stat']
+        types = list()
+        for type_pokemon in response['types']:
+            types.append(type_pokemon['type']['name'])
+        data_pokemons[response['id']] = {
+            'name': pokemon,
+            'base_experience': response['base_experience'],
+            'stats': stats,
+            'types': types
+        }
+    data_pokemons = {
+        'pokemons': data_pokemons
+    }
+    return data_pokemons
 
 
 
