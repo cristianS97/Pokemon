@@ -1,10 +1,14 @@
 class Pokemon:
     
-    def __init__(self, name:str, types:list, attacks:list, stats:dict):
+    def __init__(self, numero_pokedex:int, name:str, types:list, attacks:list, stats:dict):
         self.__name = name
         self.__types = types
         self.__attacks = attacks
         self.__stats = stats
+        self.__numero_pokedex = numero_pokedex
+
+    def get_numero_pokedex(self):
+        return self.__numero_pokedex
 
     def get_name(self):
         return self.__name
@@ -16,7 +20,7 @@ class Pokemon:
             return f"{self.__types[0]} - {self.__types[1]}"
     
     def get_info(self):
-        data = f"{self.get_name()}"
+        data = f"{self.get_numero_pokedex()} - {self.get_name()}"
         data += f"\n{self.get_types()}"
         return data
     
