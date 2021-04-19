@@ -1,6 +1,10 @@
 from clases import Pokemon
 from conf import base_stats
 from manejo_archivos import *
+import os
+import random
+
+os.system('cls')
 
 resp = input('Desea actualizar la información? (y/n): ')
 if resp.lower() == 'y':
@@ -8,19 +12,24 @@ if resp.lower() == 'y':
     TIPOS_POKEMON = get_pokemon_types()
     POKEMON_LIST = get_pokemon_list()
     POKEMONS = get_pokemon_data(POKEMON_LIST)
+    NATURES = get_pokemon_natures()
     write_types(TIPOS_POKEMON)
     write_pokemons(POKEMONS)
+    write_natures(NATURES)
 else:
     TIPOS_POKEMON = read_types()
     POKEMONS = read_pokemons()
+    NATURES = read_natures()
 
 players = dict()
+
+os.system('cls')
 
 for i in range(2):
     name = input(f'Player {i+1}: ')
     players[name] = list() # Lista para almacenar los pokemons deseados
 
-print()
+os.system('cls')
 
 while True:
     try:
@@ -32,29 +41,34 @@ while True:
     else:
         break
 
-print()
-
 pokemon_ids = {
     list(players.keys())[0]: list(), # Ids de pokemons deseados
     list(players.keys())[1]: list() # Ids de pokemons deseados
 }
 for player in players.keys():
+    os.system('cls')
     i = 0
     while i < pokemons_lenght:
         name = input(f'{player} - What\'s the pokemon name: ')
         finded = False
+        added = False
         for id in POKEMONS:
             if POKEMONS[id]['name'].lower() == name.lower():
-                pokemon_ids[player].append(id)
                 finded = True
-                i += 1
-                break
+                if id not in pokemon_ids[player]:
+                    added = True
+                    pokemon_ids[player].append(id)
+                    i += 1
+                    break
         if not finded:
             print('The name is incorrect')
+        elif not added:
+            print('Can\'t have two times the same pokemon')
         else:
             print(f'{name.lower()} added to your team')
+    input('Press enter to continue')
 
-print()
+os.system('cls')
 
 pokemons = dict()
 for player in players.keys():
@@ -72,7 +86,8 @@ for player in players.keys():
                     POKEMONS[str(pokemon_id)]['stats']['special-attack'],
                     POKEMONS[str(pokemon_id)]['stats']['special-defense'],
                     POKEMONS[str(pokemon_id)]['stats']['speed']
-                )
+                ),
+                random.choice(NATURES)
             )
         )
 

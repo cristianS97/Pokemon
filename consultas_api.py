@@ -6,6 +6,7 @@ import json
 URL = 'https://pokeapi.co/api/v2/'
 
 def get_pokemon_types():
+    print('tipos pokemon')
     response = requests.get(URL + '/type')
     response = response.content
     response = json.loads(response)
@@ -23,6 +24,7 @@ def get_pokemon_types():
     return types_dict
 
 def get_pokemon_list():
+    print('pokemon list')
     response = requests.get(URL + '/pokemon')
     response = response.content
     response = json.loads(response)
@@ -42,6 +44,7 @@ def get_pokemon_list():
     return pokemons
 
 def get_pokemon_data(pokemons):
+    print('pokemon data')
     data_pokemons = dict()
     for pokemon in pokemons:
         response = requests.get(URL + '/pokemon/' + pokemon)
@@ -64,6 +67,30 @@ def get_pokemon_data(pokemons):
         'pokemons': data_pokemons
     }
     return data_pokemons
+
+def get_pokemon_natures():
+    print('pokemon natures')
+    response = requests.get(URL + '/nature')
+    response = response.content
+    response = json.loads(response)
+
+    natures = list()
+
+    for nature in response['results']:
+        natures.append(nature['name'])
+    
+    while response['next']:
+        response = requests.get(response['next'])
+        response = response.content
+        response = json.loads(response)
+        for nature in response['results']:
+            natures.append(nature['name'])
+        
+    natures = {
+        'natures': natures
+    }
+
+    return natures
 
 
 

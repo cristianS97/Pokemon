@@ -20,3 +20,12 @@ def read_pokemons():
     with open(ruta.joinpath('archivos').joinpath('pokemons.json')) as json_file:
         POKEMONS = json.load(json_file)['pokemons']
     return POKEMONS
+
+def write_natures(natures):
+    with open(ruta.joinpath('archivos').joinpath('natures.json'), 'w') as json_file:
+        json.dump(natures, json_file, indent=4)
+
+def read_natures():
+    with open(ruta.joinpath('archivos').joinpath('natures.json')) as json_file:
+        NATURES = json.load(json_file)['natures']
+    return NATURES
