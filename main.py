@@ -21,13 +21,13 @@ else:
     POKEMONS = read_pokemons()
     NATURES = read_natures()
 
-players = dict()
+players = list()
 
 os.system('cls')
 
 for i in range(2):
     name = input(f'Player {i+1}: ')
-    players[name] = list() # Lista para almacenar los pokemons deseados
+    players.append(name) # Lista para almacenar los pokemons deseados
 
 os.system('cls')
 
@@ -42,10 +42,10 @@ while True:
         break
 
 pokemon_ids = {
-    list(players.keys())[0]: list(), # Ids de pokemons deseados
-    list(players.keys())[1]: list() # Ids de pokemons deseados
+    players[0]: list(), # Ids de pokemons deseados
+    players[1]: list() # Ids de pokemons deseados
 }
-for player in players.keys():
+for player in players:
     os.system('cls')
     i = 0
     while i < pokemons_lenght:
@@ -71,7 +71,7 @@ for player in players.keys():
 os.system('cls')
 
 pokemons = dict()
-for player in players.keys():
+for player in players:
     pokemons[player] = list()
     for pokemon_id in pokemon_ids[player]:
         pokemons[player].append(
@@ -91,7 +91,7 @@ for player in players.keys():
             )
         )
 
-for player in players.keys():
+for player in players:
     print(player)
     for pokemon in pokemons[player]:
         print(pokemon.get_info())
