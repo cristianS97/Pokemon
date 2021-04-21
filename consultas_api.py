@@ -1,10 +1,31 @@
+# -*- coding: utf-8 -*-
+# Autor: Cristian Sáez Mardones
+# Fecha: 18-04-2021
+# Versión: 
+# Objetivo: Crear un juego de batallas pokemon
+
+# Importación de archivo
+    # No hay
+# Importación de bibliotecas
+    # Si hay
+# Importación de funciones
+    # No hay
+
+### Bibliotecas ###
+# Biblioteca para peticiones http
 import requests
+# Biblioteca para el manejo del so
 import os
+# Biblioteca para el manejo de ficheros json
 import json
 
 # URL base para consultas api
 URL = 'https://pokeapi.co/api/v2/'
 
+#####################################################################
+# Función: Obtener los tipos de los pokemon de la api
+# Entrada: No hay entrada en la función
+# Salida: Diccionario con los tipos posibles de pokemon
 def get_pokemon_types():
     print('tipos pokemon')
     response = requests.get(URL + '/type')
@@ -23,6 +44,10 @@ def get_pokemon_types():
     
     return types_dict
 
+#####################################################################
+# Función: Obtener lista de los nombre pokemon
+# Entrada: No hay entrada en la función
+# Salida: Lista con los nombres de los pokemon
 def get_pokemon_list():
     print('pokemon list')
     response = requests.get(URL + '/pokemon')
@@ -43,6 +68,10 @@ def get_pokemon_list():
 
     return pokemons
 
+#####################################################################
+# Función: Obtener la información de un pokemon
+# Entrada: Nombre del pokemon a consultar
+# Salida: Diccionario con las estadisticas del pokemon
 def get_pokemon_data(pokemons):
     print('pokemon data')
     data_pokemons = dict()
@@ -68,6 +97,10 @@ def get_pokemon_data(pokemons):
     }
     return data_pokemons
 
+#####################################################################
+# Función: Obtener las naturalezas de los pokemon
+# Entrada: No hay entrada en la función
+# Salida: Diccionario con las naturalezas pokemon
 def get_pokemon_natures():
     print('pokemon natures')
     response = requests.get(URL + '/nature')
