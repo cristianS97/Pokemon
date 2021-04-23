@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Autor: Cristian Sáez Mardones
 # Fecha: 18-04-2021
-# Versión: 
+# Versión: 1.0.0
 # Objetivo: Crear un juego de batallas pokemon
 
 # Importación de archivo
