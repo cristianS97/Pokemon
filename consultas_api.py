@@ -100,7 +100,7 @@ def get_pokemon_data(pokemons):
 #####################################################################
 # Función: Obtener las naturalezas de los pokemon
 # Entrada: No hay entrada en la función
-# Salida: Diccionario con las naturalezas pokemon
+# Salida: Lista con las naturalezas pokemon
 def get_pokemon_natures():
     print('pokemon natures')
     response = requests.get(URL + '/nature')
@@ -118,14 +118,29 @@ def get_pokemon_natures():
         response = json.loads(response)
         for nature in response['results']:
             natures.append(nature['name'])
-        
-    natures = {
-        'natures': natures
-    }
 
     return natures
 
+#####################################################################
+# Función: Obtener los detalles de las naturalezas de los pokemon
+# Entrada: lista de naturalezas
+# Salida: Diccionario con las naturalezas pokemon
+def get_nature_data(natures):
+    print('nature data')
+    natures_dict = dict()
+    for nature in natures:
+        natures_dict[nature] = dict()
+        response = requests.get(URL + '/nature/' + nature)
+        response = response.content
+        response = json.loads(response)
+        natures_dict[nature]['decreased_stat'] = response['decreased_stat']['name'] if response['decreased_stat'] else None
+        natures_dict[nature]['increased_stat'] = response['increased_stat']['name'] if response['increased_stat'] else None
+    
+    natures = {
+        'natures': natures_dict
+    }
 
+    return natures
 
 
 

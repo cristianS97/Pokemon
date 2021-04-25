@@ -18,7 +18,7 @@ from clases import Pokemon
 from conf import base_stats
 # Funciones de manejos de los ficheros json
 from manejo_archivos import *
-## Importaciones ##
+## Bibliotecas ##
 # Biblioteca para el manejo del so
 import os
 # Biblioteca para la obtención de números aleatorios y selección aleatoria de un iterable
@@ -35,7 +35,8 @@ if resp.lower() == 'y':
     TIPOS_POKEMON = get_pokemon_types()
     POKEMON_LIST = get_pokemon_list()
     POKEMONS = get_pokemon_data(POKEMON_LIST)
-    NATURES = get_pokemon_natures()
+    NATURES_LIST = get_pokemon_natures()
+    NATURES = get_nature_data(NATURES_LIST)
     # Se almacena la información en archivos json
     write_types(TIPOS_POKEMON)
     write_pokemons(POKEMONS)
@@ -129,7 +130,7 @@ for player in players:
                     POKEMONS[str(pokemon_id)]['stats']['speed']
                 ),
                 # Se escoge la naturaleza de manera aleatoria
-                random.choice(NATURES)
+                random.choice(list(NATURES.keys()))
             )
         )
 
@@ -137,6 +138,7 @@ for player in players:
 for player in players:
     print(player)
     for pokemon in pokemons[player]:
+        pokemon.update_stats(NATURES)
         print(pokemon.get_info())
         print("STATS")
         print(pokemon.get_stats())

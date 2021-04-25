@@ -1,29 +1,104 @@
 {
-    "natures": [
-        "hardy",
-        "bold",
-        "modest",
-        "calm",
-        "timid",
-        "lonely",
-        "docile",
-        "mild",
-        "gentle",
-        "hasty",
-        "adamant",
-        "impish",
-        "bashful",
-        "careful",
-        "rash",
-        "jolly",
-        "naughty",
-        "lax",
-        "quirky",
-        "naive",
-        "brave",
-        "relaxed",
-        "quiet",
-        "sassy",
-        "serious"
-    ]
+    "natures": {
+        "hardy": {
+            "decreased_stat": null,
+            "increased_stat": null
+        },
+        "bold": {
+            "decreased_stat": "attack",
+            "increased_stat": "defense"
+        },
+        "modest": {
+            "decreased_stat": "attack",
+            "increased_stat": "special-attack"
+        },
+        "calm": {
+            "decreased_stat": "attack",
+            "increased_stat": "special-defense"
+        },
+        "timid": {
+            "decreased_stat": "attack",
+            "increased_stat": "speed"
+        },
+        "lonely": {
+            "decreased_stat": "defense",
+            "increased_stat": "attack"
+        },
+        "docile": {
+            "decreased_stat": null,
+            "increased_stat": null
+        },
+        "mild": {
+            "decreased_stat": "defense",
+            "increased_stat": "special-attack"
+        },
+        "gentle": {
+            "decreased_stat": "defense",
+            "increased_stat": "special-defense"
+        },
+        "hasty": {
+            "decreased_stat": "defense",
+            "increased_stat": "speed"
+        },
+        "adamant": {
+            "decreased_stat": "special-attack",
+            "increased_stat": "attack"
+        },
+        "impish": {
+            "decreased_stat": "special-attack",
+            "increased_stat": "defense"
+        },
+        "bashful": {
+            "decreased_stat": null,
+            "increased_stat": null
+        },
+        "careful": {
+            "decreased_stat": "special-attack",
+            "increased_stat": "special-defense"
+        },
+        "rash": {
+            "decreased_stat": "special-defense",
+            "increased_stat": "special-attack"
+        },
+        "jolly": {
+            "decreased_stat": "special-attack",
+            "increased_stat": "speed"
+        },
+        "naughty": {
+            "decreased_stat": "special-defense",
+            "increased_stat": "attack"
+        },
+        "lax": {
+            "decreased_stat": "special-defense",
+            "increased_stat": "defense"
+        },
+        "quirky": {
+            "decreased_stat": null,
+            "increased_stat": null
+        },
+        "naive": {
+            "decreased_stat": "special-defense",
+            "increased_stat": "speed"
+        },
+        "brave": {
+            "decreased_stat": "speed",
+            "increased_stat": "attack"
+        },
+        "relaxed": {
+            "decreased_stat": "speed",
+            "increased_stat": "defense"
+        },
+        "quiet": {
+            "decreased_stat": "speed",
+            "increased_stat": "special-attack"
+        },
+        "sassy": {
+            "decreased_stat": "speed",
+            "increased_stat": "special-defense"
+        },
+        "serious": {
+            "decreased_stat": null,
+            "increased_stat": null
+        }
+    }
 }

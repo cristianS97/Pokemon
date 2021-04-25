@@ -7,9 +7,13 @@
 # Importación de archivo
     # No hay
 # Importación de bibliotecas
-    # No hay
+    # Si hay
 # Importación de funciones
     # No hay
+
+## Bibliotecas ##
+# Librería con funciones matematicas
+import math
 
 #####################################################################
 # Clase que define una entidad de pokemon
@@ -75,3 +79,25 @@ class Pokemon:
             if i < len(self.__stats) - 1:
                 data += "\n"
         return data
+
+    #####################################################################
+    # Método: Modificar los stats del pokemon
+    # Entrada: stat a modificar, tipo de modificación
+    # Salida: no hay
+    def set_stat(self, stat:str, update:float):
+        if update == 0.9:
+            self.__stats[stat.replace('-', ' ')] = math.floor(self.__stats[stat.replace('-', ' ')] * update)
+        else:
+            self.__stats[stat.replace('-', ' ')] = math.ceil(self.__stats[stat.replace('-', ' ')] * update)
+
+    #####################################################################
+    # Método: Actualizar los stats del pokemon según su naturaleza
+    # Entrada: Diccionario con stats
+    # Salida: No hay
+    def update_stats(self, natures_data:dict):
+        stats_update = natures_data[self.get_nature()]
+        if stats_update['increased_stat']:
+            self.set_stat(stats_update['increased_stat'], 1.1)
+        if stats_update['decreased_stat']:
+            self.set_stat(stats_update['decreased_stat'], 0.9)
+        
