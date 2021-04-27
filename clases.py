@@ -23,7 +23,7 @@ class Pokemon:
     # Método: Inicializar al objeto pokemon
     # Entrada: Datos para definir a un pokemon
     # Salida: No hay
-    def __init__(self, numero_pokedex_nacional:int, name:str, types:list, stats:dict, nature:str):
+    def __init__(self, numero_pokedex_nacional:int, name:str, types:list, stats:dict, nature:str) -> None:
         self.__name = name
         self.__types = types
         self.__stats = stats
@@ -84,7 +84,7 @@ class Pokemon:
     # Método: Modificar los stats del pokemon
     # Entrada: stat a modificar, tipo de modificación
     # Salida: no hay
-    def set_stat(self, stat:str, update:float):
+    def set_stat(self, stat:str, update:float) -> None:
         if update == 0.9:
             self.__stats[stat.replace('-', ' ')] = math.floor(self.__stats[stat.replace('-', ' ')] * update)
         else:
@@ -94,7 +94,7 @@ class Pokemon:
     # Método: Actualizar los stats del pokemon según su naturaleza
     # Entrada: Diccionario con stats
     # Salida: No hay
-    def update_stats(self, natures_data:dict):
+    def update_stats(self, natures_data:dict) -> None:
         stats_update = natures_data[self.get_nature()]
         if stats_update['increased_stat']:
             self.set_stat(stats_update['increased_stat'], 1.1)
