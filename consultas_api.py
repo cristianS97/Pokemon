@@ -72,7 +72,7 @@ def get_pokemon_list() -> list:
 # Función: Obtener la información de un pokemon
 # Entrada: Nombre del pokemon a consultar
 # Salida: Diccionario con las estadisticas del pokemon
-def get_pokemon_data(pokemons) -> dict:
+def get_pokemon_data(pokemons:list) -> dict:
     print('pokemon data')
     data_pokemons = dict()
     for pokemon in pokemons:
@@ -125,7 +125,7 @@ def get_pokemon_natures() -> list:
 # Función: Obtener los detalles de las naturalezas de los pokemon
 # Entrada: lista de naturalezas
 # Salida: Diccionario con las naturalezas pokemon
-def get_nature_data(natures) -> dict:
+def get_nature_data(natures:list) -> dict:
     print('nature data')
     natures_dict = dict()
     for nature in natures:

@@ -24,7 +24,7 @@ ruta = Path(__file__).resolve().parent
 # Función: Escribir los tipos de pokemon en un archivo json
 # Entrada: diccionario con tipos de pokemon
 # Salida: No hay
-def write_types(types) -> None:
+def write_types(types:dict) -> None:
     with open(ruta.joinpath('archivos').joinpath('types.json'), 'w') as json_file:
         json.dump(types, json_file, indent=4)
 
@@ -41,7 +41,7 @@ def read_types() -> dict:
 # Función: Escribir los pokemon junto a sus datos en un archivo json
 # Entrada: diccionario con tipos de pokemon
 # Salida: No hay
-def write_pokemons(pokemons) -> None:
+def write_pokemons(pokemons:dict) -> None:
     with open(ruta.joinpath('archivos').joinpath('pokemons.json'), 'w') as json_file:
         json.dump(pokemons, json_file, indent=4)
 
@@ -58,7 +58,7 @@ def read_pokemons() -> dict:
 # Función: Escribir las naturalezas pokemon en un archivo json
 # Entrada: diccionario con naturalezas de pokemon
 # Salida: No hay
-def write_natures(natures) -> None:
+def write_natures(natures:dict) -> None:
     with open(ruta.joinpath('archivos').joinpath('natures.json'), 'w') as json_file:
         json.dump(natures, json_file, indent=4)
 
