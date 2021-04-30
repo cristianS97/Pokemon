@@ -30,6 +30,7 @@ class Conexion:
         self.__conexion = sqlite3.connect(ruta.joinpath('bbdd').joinpath('base_pokemon.db'))
     
     def cerrar(self):
+        self.__conexion.commit()
         self.__conexion.close()
 
     def consultar_pokemon(self, pokemon:str) -> sqlite3.Connection:
@@ -40,6 +41,10 @@ class Conexion:
         self.crear_tabla_base_stats()
         self.crear_tabla_types()
         self.crear_tabla_relacion_pokemon_types()
+        self.crear_tabla_nature()
+        self.crear_tabla_trainer()
+        self.crear_tabla_team()
+        self.crear_tabla_pokemon_team()
 
     def crear_tabla_pokemon(self) -> None:
         sql_string = """create table if not exists pokemon(
@@ -89,6 +94,55 @@ class Conexion:
         self.conectar()
         self.__conexion.execute(sql_string)
         self.cerrar()
+    
+    def crear_tabla_nature(self):
+        sql_string = """create table if not exists nature(
+            id_nature integer not null,
+            nature varchar(20) not null,
+            decreased_stat varchar(20),
+            increased_stat varchar(20),
+            constraint pk_nature primary key (id_nature)
+        )"""
+        self.conectar()
+        self.__conexion.execute(sql_string)
+        self.cerrar()
+    
+    def crear_tabla_trainer(self):
+        sql_string = """create table if not exists trainer(
+            id_trainer integer not null,
+            name varchar(20) not null,
+            gender char(1) not null,
+            constraint pk_trainer primary key (id_trainer)
+        )"""
+        self.conectar()
+        self.__conexion.execute(sql_string)
+        self.cerrar()
+    
+    def crear_tabla_team(self):
+        sql_string = """create table if not exists team(
+            id_team integer not null,
+            id_trainer integer not null,
+            name varchar(30) not null,
+            constraint pk_team primary key (id_team),
+            constraint fk_trainer_team foreign key (id_trainer) references trainer (id_trainer)
+        )"""
+        self.conectar()
+        self.__conexion.execute(sql_string)
+        self.cerrar()
+    
+    def crear_tabla_pokemon_team(self):
+        sql_string = """create table if not exists pokemon_team(
+            id_pokemon integer not null,
+            id_team integer not null,
+            id_nature integer not null,
+            name varchar(30) not null,
+            constraint fk_pokemon_team_pokemon foreign key (id_pokemon) references pokemon (id_pokemon),
+            constraint fk_pokemon_team_team foreign key (id_team) references team (id_team),
+            constraint fk_pokemon_team_nature foreign key (id_nature) references nature (id_nature)
+        )"""
+        self.conectar()
+        self.__conexion.execute(sql_string)
+        self.cerrar()
 
 obj_conexion = Conexion()
-obj_conexion.crear_tabla_pokemon()
+obj_conexion.crear_tablas()

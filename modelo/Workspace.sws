@@ -4,7 +4,7 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{85F6040F-6144-4392-BD25-E2967554D80A}" Name="Pokemon" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="Pokemon.ldm"/>
+		<Model Expanded="Yes" ID="{85F6040F-6144-4392-BD25-E2967554D80A}" Name="Pokemon" Selected="Yes" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="Pokemon.ldm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
