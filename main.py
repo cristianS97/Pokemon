@@ -24,34 +24,8 @@ import os
 # Biblioteca para la obtención de números aleatorios y selección aleatoria de un iterable
 import random
 
-# Se limpia la pantalla de la consola
-os.system('cls')
-
-resp = input('Desea actualizar la información? (y/n): ')
-if resp.lower() == 'y':
-    # Funciones para consultar la API y actualizar los ficheros json
-    from consultas_api import *
-    # Se consultan los endpoint de la API y se pide la información
-    TIPOS_POKEMON = get_pokemon_types()
-    POKEMON_LIST = get_pokemon_list()
-    POKEMONS = get_pokemon_data(POKEMON_LIST)
-    NATURES_LIST = get_pokemon_natures()
-    NATURES = get_nature_data(NATURES_LIST)
-    # Se almacena la información en archivos json
-    write_types(TIPOS_POKEMON)
-    write_pokemons(POKEMONS)
-    write_natures(NATURES)
-else:
-    # Se consultan ficheros json con los datos guardados
-    TIPOS_POKEMON = read_types()
-    POKEMONS = read_pokemons()
-    NATURES = read_natures()
-
 # Lista para guardar los nombres de los jugadores
 players = list()
-
-# Se limpia la pantalla de la consola
-os.system('cls')
 
 # Se consultan los nombres de los jugadores
 for i in range(2):

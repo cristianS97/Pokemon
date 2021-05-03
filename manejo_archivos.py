@@ -24,7 +24,7 @@ ruta = Path(__file__).resolve().parent
 # Función: Escribir los tipos de pokemon en un archivo json
 # Entrada: diccionario con tipos de pokemon
 # Salida: No hay
-def write_types(types):
+def write_types(types:dict) -> None:
     with open(ruta.joinpath('archivos').joinpath('types.json'), 'w') as json_file:
         json.dump(types, json_file, indent=4)
 
@@ -32,7 +32,7 @@ def write_types(types):
 # Función: Leer el fichero json con los tipos de pokemon
 # Entrada: No hay entrada en la función
 # Salida: Lista con los tipos de pokemon
-def read_types():
+def read_types() -> dict:
     with open(ruta.joinpath('archivos').joinpath('types.json')) as json_file:
         TIPOS_POKEMON = json.load(json_file)['types']
     return TIPOS_POKEMON
@@ -41,7 +41,7 @@ def read_types():
 # Función: Escribir los pokemon junto a sus datos en un archivo json
 # Entrada: diccionario con tipos de pokemon
 # Salida: No hay
-def write_pokemons(pokemons):
+def write_pokemons(pokemons:dict) -> None:
     with open(ruta.joinpath('archivos').joinpath('pokemons.json'), 'w') as json_file:
         json.dump(pokemons, json_file, indent=4)
 
@@ -49,7 +49,7 @@ def write_pokemons(pokemons):
 # Función: Leer el fichero json con los pokemon
 # Entrada: No hay entrada en la función
 # Salida: Diccionario con la información de los pokemon
-def read_pokemons():
+def read_pokemons() -> dict:
     with open(ruta.joinpath('archivos').joinpath('pokemons.json')) as json_file:
         POKEMONS = json.load(json_file)['pokemons']
     return POKEMONS
@@ -58,7 +58,7 @@ def read_pokemons():
 # Función: Escribir las naturalezas pokemon en un archivo json
 # Entrada: diccionario con naturalezas de pokemon
 # Salida: No hay
-def write_natures(natures):
+def write_natures(natures:dict) -> None:
     with open(ruta.joinpath('archivos').joinpath('natures.json'), 'w') as json_file:
         json.dump(natures, json_file, indent=4)
 
@@ -66,7 +66,7 @@ def write_natures(natures):
 # Función: Leer el fichero json con las naturalezas pokemon
 # Entrada: No hay entrada en la función
 # Salida: Lista con las naturalezas pokemon
-def read_natures():
+def read_natures() -> dict:
     with open(ruta.joinpath('archivos').joinpath('natures.json')) as json_file:
         NATURES = json.load(json_file)['natures']
     return NATURES

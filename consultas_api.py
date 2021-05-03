@@ -26,7 +26,7 @@ URL = 'https://pokeapi.co/api/v2/'
 # Función: Obtener los tipos de los pokemon de la api
 # Entrada: No hay entrada en la función
 # Salida: Diccionario con los tipos posibles de pokemon
-def get_pokemon_types():
+def get_pokemon_types() -> dict:
     print('tipos pokemon')
     response = requests.get(URL + '/type')
     response = response.content
@@ -48,7 +48,7 @@ def get_pokemon_types():
 # Función: Obtener lista de los nombre pokemon
 # Entrada: No hay entrada en la función
 # Salida: Lista con los nombres de los pokemon
-def get_pokemon_list():
+def get_pokemon_list() -> list:
     print('pokemon list')
     response = requests.get(URL + '/pokemon')
     response = response.content
@@ -72,7 +72,7 @@ def get_pokemon_list():
 # Función: Obtener la información de un pokemon
 # Entrada: Nombre del pokemon a consultar
 # Salida: Diccionario con las estadisticas del pokemon
-def get_pokemon_data(pokemons):
+def get_pokemon_data(pokemons:list) -> dict:
     print('pokemon data')
     data_pokemons = dict()
     for pokemon in pokemons:
@@ -101,7 +101,7 @@ def get_pokemon_data(pokemons):
 # Función: Obtener las naturalezas de los pokemon
 # Entrada: No hay entrada en la función
 # Salida: Lista con las naturalezas pokemon
-def get_pokemon_natures():
+def get_pokemon_natures() -> list:
     print('pokemon natures')
     response = requests.get(URL + '/nature')
     response = response.content
@@ -125,7 +125,7 @@ def get_pokemon_natures():
 # Función: Obtener los detalles de las naturalezas de los pokemon
 # Entrada: lista de naturalezas
 # Salida: Diccionario con las naturalezas pokemon
-def get_nature_data(natures):
+def get_nature_data(natures:list) -> dict:
     print('nature data')
     natures_dict = dict()
     for nature in natures:
