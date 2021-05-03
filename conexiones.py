@@ -9,13 +9,15 @@
 # Importación de bibliotecas
     # Si hay
 # Importación de funciones
-    # No hay
+    # Si hay
 
 ### Bibliotecas ###
 # Biblioteca para manejo de bbdd
 import sqlite3
 # Biblioteca para manejo de rutas
 from pathlib import Path
+# Funciones para consultar la API
+from consultas_api import *
 
 ruta = Path(__file__).resolve().parent
 
@@ -31,13 +33,16 @@ class Conexion:
     # Función: Cargar datos en la bbdd
     # Entrada: Nombre de tabla y data a insertar
     # Salida: No hay
-    def cargar(self, tabla:str, data:list) -> None:
+    def cargar(self, tabla:str, data:list, columns:int, relacion:bool=False) -> None:
         self.conectar()
         cursor = self.__conexion.cursor()
-        incognitas = "?" * len(data[0])
+        incognitas = "?" * columns
         while '??' in incognitas:
             incognitas = incognitas.replace('??', '?,?')
-        cursor.executemany(f"insert into {tabla} values ({incognitas})", data)
+        if relacion:
+            cursor.executemany(f"insert into {tabla} values ({incognitas})", data)
+        else:   
+            cursor.executemany(f"insert into {tabla} values (null, {incognitas})", data)
         self.cerrar()
 
     #####################################################################
@@ -56,11 +61,31 @@ class Conexion:
         self.__conexion.close()
 
     #####################################################################
-    # Función: Consultar información de un pokemon
-    # Entrada: Nombre del pokemon a consultar
-    # Salida: Diccionario con la información del pokemon
-    def consultar_pokemon(self, pokemon:str) -> dict:
-        pass
+    # Función: Consultar información de una tabla
+    # Entrada: Nombre de la tabla a consultar
+    # Salida: toda la información de una tabla
+    def consultar_tabla(self, tabla:str) -> list:
+        sql_string = f"select * from {tabla}"
+        self.conectar()
+        cursor = self.__conexion.cursor()
+        cursor.execute(sql_string)
+        data = cursor.fetchall()
+        cursor.close()
+        self.cerrar()
+        return data
+
+    #####################################################################
+    # Función: Consultar información de una tabla
+    # Entrada: Nombre de la tabla a consultar
+    # Salida: toda la información de una tabla
+    def consultar_tabla_porsonalizada(self, sql_string:str) -> list:
+        self.conectar()
+        cursor = self.__conexion.cursor()
+        cursor.execute(sql_string)
+        data = cursor.fetchall()
+        cursor.close()
+        self.cerrar()
+        return data
     
     #####################################################################
     # Función: Crear las tablas en la bbdd
@@ -211,10 +236,96 @@ class Conexion:
         self.__conexion.execute(sql_string)
         self.cerrar()
 
-# print('Pruebas de creación')
-# obj_conexion = Conexion()
+obj_conexion = Conexion()
+
 # obj_conexion.crear_tablas()
-# obj_conexion.cargar("trainer", [(None, 'maria', 'f')])
-# obj_conexion.cargar("trainer", [(None, 'Gato', 'm'), (None, 'pepe', 'm')])
-# obj_conexion.cargar("pokemon", [(None, 'charmander'), (None, 'squirtle')])
-# print('Fin prueba')
+
+
+
+# TYPES = get_pokemon_types()
+# types2 = list()
+# for tipo in TYPES['types']:
+#     types2.append((tipo,))
+# obj_conexion.cargar('type', types2, 1)
+
+
+
+# POKEMONS = get_pokemon_list()
+# pokemons2 = list()
+# for pokemon in POKEMONS:
+#     pokemons2.append((pokemon,))
+# obj_conexion.cargar('pokemon', pokemons2, 1)
+
+
+
+# data = obj_conexion.consultar_tabla('pokemon')
+# print(data)
+# data = obj_conexion.consultar_tabla('type')
+# print(data)
+
+
+
+# data = obj_conexion.consultar_tabla('pokemon')
+# pokemons = list()
+# for pokemon in data:
+#     pokemons.append(pokemon[1])
+
+# data = get_pokemon_data(pokemons)
+# for pokemon_data in data['pokemons']:
+#     insert_data = list()
+#     aux = data['pokemons'][pokemon_data]
+#     name = aux['name']
+#     print(name)
+#     id_pokemon = obj_conexion.consultar_tabla_porsonalizada(f"select id_pokemon from pokemon where name = '{name}'")
+#     insert_data.append(id_pokemon[0][0])
+#     insert_data.append(aux['base_experience'])
+#     insert_data.append(aux['stats']['hp'])
+#     insert_data.append(aux['stats']['attack'])
+#     insert_data.append(aux['stats']['defense'])
+#     insert_data.append(aux['stats']['special-attack'])
+#     insert_data.append(aux['stats']['special-defense'])
+#     insert_data.append(aux['stats']['speed'])
+#     obj_conexion.cargar('base_stats', [tuple(insert_data)], len(insert_data))
+
+
+
+# data = obj_conexion.consultar_tabla('pokemon')
+# pokemons = list()
+# for pokemon in data:
+#     pokemons.append(pokemon[1])
+
+# data = get_pokemon_data(pokemons)
+# insert_data = list()
+# for pokemon_data in data['pokemons']:
+#     aux = data['pokemons'][pokemon_data]
+#     name = aux['name']
+#     print(name)
+#     id_pokemon = obj_conexion.consultar_tabla_porsonalizada(f"select id_pokemon from pokemon where name = '{name}'")[0][0]
+#     types = aux['types']
+#     for pokemon_type in types:
+#         id_type = obj_conexion.consultar_tabla_porsonalizada(f"select id_type from type where type = '{pokemon_type}'")
+#         id_type = id_type[0][0]
+#         insert_data.append((id_pokemon, id_type))
+
+# obj_conexion.cargar('pokemon_type', insert_data, 2, True)
+
+
+
+# data = get_nature_data(get_pokemon_natures())
+# insert_data = list()
+
+# for nature in data['natures']:
+#     decreased_stat = data['natures'][nature]['decreased_stat']
+#     increased_stat = data['natures'][nature]['increased_stat']
+#     try:
+#         decreased_stat = decreased_stat.replace('-', '_')
+#         increased_stat = increased_stat.replace('-', '_')
+#     except:
+#         pass
+#     insert_data.append((nature, decreased_stat, increased_stat))
+
+# obj_conexion.cargar('nature', insert_data, 3)
+
+
+
+
