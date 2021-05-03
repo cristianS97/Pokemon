@@ -14,6 +14,8 @@
 ## Bibliotecas ##
 # Librería con funciones matematicas
 import math
+# Clase para conectarse a la bbdd
+from conexiones import Conexion
 
 #####################################################################
 # Clase que define una entidad de pokemon
@@ -29,6 +31,7 @@ class Pokemon:
         self.__stats = stats
         self.__numero_pokedex_nacional = numero_pokedex_nacional
         self.__nature = nature
+        self.update_stats()
 
     #####################################################################
     # Método: Obtener el número de pokedex del objeto
@@ -86,18 +89,20 @@ class Pokemon:
     # Salida: no hay
     def set_stat(self, stat:str, update:float) -> None:
         if update == 0.9:
-            self.__stats[stat.replace('-', ' ')] = math.floor(self.__stats[stat.replace('-', ' ')] * update)
+            self.__stats[stat.replace('-', ' ').replace('_', ' ')] = math.floor(self.__stats[stat.replace('-', ' ').replace('_', ' ')] * update)
         else:
-            self.__stats[stat.replace('-', ' ')] = math.ceil(self.__stats[stat.replace('-', ' ')] * update)
+            self.__stats[stat.replace('-', ' ').replace('_', ' ')] = math.ceil(self.__stats[stat.replace('-', ' ').replace('_', ' ')] * update)
 
     #####################################################################
     # Método: Actualizar los stats del pokemon según su naturaleza
     # Entrada: Diccionario con stats
     # Salida: No hay
-    def update_stats(self, natures_data:dict) -> None:
-        stats_update = natures_data[self.get_nature()]
-        if stats_update['increased_stat']:
-            self.set_stat(stats_update['increased_stat'], 1.1)
-        if stats_update['decreased_stat']:
-            self.set_stat(stats_update['decreased_stat'], 0.9)
-        
+    def update_stats(self) -> None:
+        obj_conexion = Conexion()
+
+        stats_update = obj_conexion.consultar_tabla_porsonalizada(f"select * from nature where nature = '{self.get_nature()}'")[0]
+        if stats_update[3]:
+            self.set_stat(stats_update[3], 1.1)
+        if stats_update[2]:
+            self.set_stat(stats_update[2], 0.9)
+
