@@ -1,11 +1,11 @@
 # FUNCIONES IMPLEMENTADAS
 
-* Consulta de datos de pokemon mediante una API
-* Guardado de datos en archivos JSON
-* Creación de modelo de BBDD
-* Carga de datos en BBDD y eliminación de archivos JSON
-* Implementación de selección de selección de pokemons en main
-* Creación de selección de jugadores
+* Consulta de datos de pokemon mediante una API (V1.0.0)
+* Guardado de datos en archivos JSON (V1.0.0)
+* Creación de modelo de BBDD (V1.5.0)
+* Carga de datos en BBDD y eliminación de archivos JSON (V1.5.0)
+* Implementación de selección de selección de pokemons en main (V1.5.0)
+* Creación de selección de jugadores (V2.0.0)
 
 ***
 
