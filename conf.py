@@ -24,3 +24,7 @@ def base_stats(hp:int, attack:int, defense:int, sa:int, sd:int, speed:int) -> di
         'special defense': sd,
         'speed': speed
     }
+
+
+# URL base para consultas api
+URL_API = 'https://pokeapi.co/api/v2/'

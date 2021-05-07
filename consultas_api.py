@@ -19,8 +19,7 @@ import os
 # Biblioteca para el manejo de ficheros json
 import json
 
-# URL base para consultas api
-URL = 'https://pokeapi.co/api/v2/'
+from conf import URL_API
 
 #####################################################################
 # Función: Obtener los tipos de los pokemon de la api
@@ -28,7 +27,7 @@ URL = 'https://pokeapi.co/api/v2/'
 # Salida: Diccionario con los tipos posibles de pokemon
 def get_pokemon_types() -> dict:
     print('tipos pokemon')
-    response = requests.get(URL + '/type')
+    response = requests.get(URL_API + '/type')
     response = response.content
     response = json.loads(response)
 
@@ -50,7 +49,7 @@ def get_pokemon_types() -> dict:
 # Salida: Lista con los nombres de los pokemon
 def get_pokemon_list() -> list:
     print('pokemon list')
-    response = requests.get(URL + '/pokemon')
+    response = requests.get(URL_API + '/pokemon')
     response = response.content
     response = json.loads(response)
 
@@ -76,7 +75,7 @@ def get_pokemon_data(pokemons:list) -> dict:
     print('pokemon data')
     data_pokemons = dict()
     for pokemon in pokemons:
-        response = requests.get(URL + '/pokemon/' + pokemon)
+        response = requests.get(URL_API + '/pokemon/' + pokemon)
         response = response.content
         response = json.loads(response)
         # Se extraen lo datos
@@ -103,7 +102,7 @@ def get_pokemon_data(pokemons:list) -> dict:
 # Salida: Lista con las naturalezas pokemon
 def get_pokemon_natures() -> list:
     print('pokemon natures')
-    response = requests.get(URL + '/nature')
+    response = requests.get(URL_API + '/nature')
     response = response.content
     response = json.loads(response)
 
@@ -130,7 +129,7 @@ def get_nature_data(natures:list) -> dict:
     natures_dict = dict()
     for nature in natures:
         natures_dict[nature] = dict()
-        response = requests.get(URL + '/nature/' + nature)
+        response = requests.get(URL_API + '/nature/' + nature)
         response = response.content
         response = json.loads(response)
         natures_dict[nature]['decreased_stat'] = response['decreased_stat']['name'] if response['decreased_stat'] else None
