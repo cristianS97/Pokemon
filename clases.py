@@ -106,3 +106,30 @@ class Pokemon:
         if stats_update[2]:
             self.set_stat(stats_update[2], 0.9)
 
+
+#####################################################################
+# Clase que define una batalla pokemon
+class Batalla:
+
+    #####################################################################
+    # Método: Inicializar al objeto batalla
+    # Entrada: No hay
+    # Salida: No hay
+    def __init__(self):
+        self.__turno = 0
+    
+
+    #####################################################################
+    # Método: Obtener los turnos transcurridos
+    # Entrada: No hay
+    # Salida: Turno
+    def get_turno(self):
+        return self.__turno
+    
+
+    #####################################################################
+    # Método: Inicializar al objeto batalla
+    # Entrada: No hay
+    # Salida: No hay
+    def set_turno(self):
+        self.__turno += 1
