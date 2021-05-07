@@ -238,93 +238,95 @@ class Conexion:
 
 obj_conexion = Conexion()
 
-# obj_conexion.crear_tablas()
+if __name__ == '__main__':
+
+    obj_conexion.crear_tablas()
 
 
 
-# TYPES = get_pokemon_types()
-# types2 = list()
-# for tipo in TYPES['types']:
-#     types2.append((tipo,))
-# obj_conexion.cargar('type', types2, 1)
+    TYPES = get_pokemon_types()
+    types2 = list()
+    for tipo in TYPES['types']:
+        types2.append((tipo,))
+    obj_conexion.cargar('type', types2, 1)
 
 
 
-# POKEMONS = get_pokemon_list()
-# pokemons2 = list()
-# for pokemon in POKEMONS:
-#     pokemons2.append((pokemon,))
-# obj_conexion.cargar('pokemon', pokemons2, 1)
+    POKEMONS = get_pokemon_list()
+    pokemons2 = list()
+    for pokemon in POKEMONS:
+        pokemons2.append((pokemon,))
+    obj_conexion.cargar('pokemon', pokemons2, 1)
 
 
 
-# data = obj_conexion.consultar_tabla('pokemon')
-# print(data)
-# data = obj_conexion.consultar_tabla('type')
-# print(data)
+    data = obj_conexion.consultar_tabla('pokemon')
+    print(data)
+    data = obj_conexion.consultar_tabla('type')
+    print(data)
 
 
 
-# data = obj_conexion.consultar_tabla('pokemon')
-# pokemons = list()
-# for pokemon in data:
-#     pokemons.append(pokemon[1])
+    data = obj_conexion.consultar_tabla('pokemon')
+    pokemons = list()
+    for pokemon in data:
+        pokemons.append(pokemon[1])
 
-# data = get_pokemon_data(pokemons)
-# for pokemon_data in data['pokemons']:
-#     insert_data = list()
-#     aux = data['pokemons'][pokemon_data]
-#     name = aux['name']
-#     print(name)
-#     id_pokemon = obj_conexion.consultar_tabla_porsonalizada(f"select id_pokemon from pokemon where name = '{name}'")
-#     insert_data.append(id_pokemon[0][0])
-#     insert_data.append(aux['base_experience'])
-#     insert_data.append(aux['stats']['hp'])
-#     insert_data.append(aux['stats']['attack'])
-#     insert_data.append(aux['stats']['defense'])
-#     insert_data.append(aux['stats']['special-attack'])
-#     insert_data.append(aux['stats']['special-defense'])
-#     insert_data.append(aux['stats']['speed'])
-#     obj_conexion.cargar('base_stats', [tuple(insert_data)], len(insert_data))
-
-
-
-# data = obj_conexion.consultar_tabla('pokemon')
-# pokemons = list()
-# for pokemon in data:
-#     pokemons.append(pokemon[1])
-
-# data = get_pokemon_data(pokemons)
-# insert_data = list()
-# for pokemon_data in data['pokemons']:
-#     aux = data['pokemons'][pokemon_data]
-#     name = aux['name']
-#     print(name)
-#     id_pokemon = obj_conexion.consultar_tabla_porsonalizada(f"select id_pokemon from pokemon where name = '{name}'")[0][0]
-#     types = aux['types']
-#     for pokemon_type in types:
-#         id_type = obj_conexion.consultar_tabla_porsonalizada(f"select id_type from type where type = '{pokemon_type}'")
-#         id_type = id_type[0][0]
-#         insert_data.append((id_pokemon, id_type))
-
-# obj_conexion.cargar('pokemon_type', insert_data, 2, True)
+    data = get_pokemon_data(pokemons)
+    for pokemon_data in data['pokemons']:
+        insert_data = list()
+        aux = data['pokemons'][pokemon_data]
+        name = aux['name']
+        print(name)
+        id_pokemon = obj_conexion.consultar_tabla_porsonalizada(f"select id_pokemon from pokemon where name = '{name}'")
+        insert_data.append(id_pokemon[0][0])
+        insert_data.append(aux['base_experience'])
+        insert_data.append(aux['stats']['hp'])
+        insert_data.append(aux['stats']['attack'])
+        insert_data.append(aux['stats']['defense'])
+        insert_data.append(aux['stats']['special-attack'])
+        insert_data.append(aux['stats']['special-defense'])
+        insert_data.append(aux['stats']['speed'])
+        obj_conexion.cargar('base_stats', [tuple(insert_data)], len(insert_data))
 
 
 
-# data = get_nature_data(get_pokemon_natures())
-# insert_data = list()
+    data = obj_conexion.consultar_tabla('pokemon')
+    pokemons = list()
+    for pokemon in data:
+        pokemons.append(pokemon[1])
 
-# for nature in data['natures']:
-#     decreased_stat = data['natures'][nature]['decreased_stat']
-#     increased_stat = data['natures'][nature]['increased_stat']
-#     try:
-#         decreased_stat = decreased_stat.replace('-', '_')
-#         increased_stat = increased_stat.replace('-', '_')
-#     except:
-#         pass
-#     insert_data.append((nature, decreased_stat, increased_stat))
+    data = get_pokemon_data(pokemons)
+    insert_data = list()
+    for pokemon_data in data['pokemons']:
+        aux = data['pokemons'][pokemon_data]
+        name = aux['name']
+        print(name)
+        id_pokemon = obj_conexion.consultar_tabla_porsonalizada(f"select id_pokemon from pokemon where name = '{name}'")[0][0]
+        types = aux['types']
+        for pokemon_type in types:
+            id_type = obj_conexion.consultar_tabla_porsonalizada(f"select id_type from type where type = '{pokemon_type}'")
+            id_type = id_type[0][0]
+            insert_data.append((id_pokemon, id_type))
 
-# obj_conexion.cargar('nature', insert_data, 3)
+    obj_conexion.cargar('pokemon_type', insert_data, 2, True)
+
+
+
+    data = get_nature_data(get_pokemon_natures())
+    insert_data = list()
+
+    for nature in data['natures']:
+        decreased_stat = data['natures'][nature]['decreased_stat']
+        increased_stat = data['natures'][nature]['increased_stat']
+        try:
+            decreased_stat = decreased_stat.replace('-', '_')
+            increased_stat = increased_stat.replace('-', '_')
+        except:
+            pass
+        insert_data.append((nature, decreased_stat, increased_stat))
+
+    obj_conexion.cargar('nature', insert_data, 3)
 
 
 
