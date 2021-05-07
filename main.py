@@ -31,6 +31,8 @@ obj_conexion = Conexion()
 players = list()
 # Diccionario para guardar los id de los pokemon a ocupar
 pokemon_ids = dict()
+# Diccionario para poder almacenar los equipos pokemon
+pokemons = dict()
 
 
 #####################################################################
@@ -106,6 +108,41 @@ def search_pokemon_id(pokemons_lenght):
         input('Press enter to continue')
 
 
+#####################################################################
+# Función: Crear los equipos pokemon
+# Entrada: No hay
+# Salida: No hay
+def create_team():
+    global pokemons
+    global players
+    global pokemon_ids
+    for player in players:
+        pokemons[player] = list()
+        for pokemon_id in pokemon_ids[player]:
+            stats = obj_conexion.consultar_tabla_porsonalizada(f"select * from base_stats where id_pokemon = {pokemon_id}")[0]
+            types = list()
+            types_bbdd = obj_conexion.consultar_tabla_porsonalizada(f"select type from pokemon_type pt inner join type t on t.id_type = pt.id_type inner join pokemon p on p.id_pokemon = pt.id_pokemon where p.id_pokemon = {pokemon_id}")
+            for pokemon_type in types_bbdd:
+                types.append(pokemon_type[0])
+            pokemons[player].append(
+                Pokemon(
+                    pokemon_id,
+                    obj_conexion.consultar_tabla_porsonalizada(f"select name from pokemon where id_pokemon = {pokemon_id}")[0][0],
+                    types,
+                    base_stats(
+                        stats[3],
+                        stats[4],
+                        stats[5],
+                        stats[6],
+                        stats[7],
+                        stats[8]
+                    ),
+                    # Se escoge la naturaleza de manera aleatoria
+                    random.choice(obj_conexion.consultar_tabla_porsonalizada(f"select nature from nature"))[0]
+                )
+            )
+
+
 # Se limpia la pantalla de la consola
 os.system('cls')
 player_choice()
@@ -113,38 +150,9 @@ player_choice()
 os.system('cls')
 pokemons_lenght = get_pokemon_team_lenght()
 search_pokemon_id(pokemons_lenght)
-
-
 # Se limpia la pantalla de la consola
 os.system('cls')
-
-# Diccionario para poder almacenar los equipos pokemon
-pokemons = dict()
-for player in players:
-    pokemons[player] = list()
-    for pokemon_id in pokemon_ids[player]:
-        stats = obj_conexion.consultar_tabla_porsonalizada(f"select * from base_stats where id_pokemon = {pokemon_id}")[0]
-        types = list()
-        types_bbdd = obj_conexion.consultar_tabla_porsonalizada(f"select type from pokemon_type pt inner join type t on t.id_type = pt.id_type inner join pokemon p on p.id_pokemon = pt.id_pokemon where p.id_pokemon = {pokemon_id}")
-        for pokemon_type in types_bbdd:
-            types.append(pokemon_type[0])
-        pokemons[player].append(
-            Pokemon(
-                pokemon_id,
-                obj_conexion.consultar_tabla_porsonalizada(f"select name from pokemon where id_pokemon = {pokemon_id}")[0][0],
-                types,
-                base_stats(
-                    stats[3],
-                    stats[4],
-                    stats[5],
-                    stats[6],
-                    stats[7],
-                    stats[8]
-                ),
-                # Se escoge la naturaleza de manera aleatoria
-                random.choice(obj_conexion.consultar_tabla_porsonalizada(f"select nature from nature"))[0]
-            )
-        )
+create_team()
 
 
 # Imprimimos los datos de los pokemon de cada jugador
