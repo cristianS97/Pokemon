@@ -13,7 +13,7 @@
 
 ## Importaciones ##
 # Clase para definir un Pokemon
-from clases import Pokemon
+from clases import Pokemon, Batalla
 # Función que configura los stats base del pokemon
 from conf import base_stats
 # Clase para conectarse a la bbdd
@@ -39,7 +39,7 @@ pokemons = dict()
 # Función: Ingresar los nombres de los jugadores
 # Entrada: No hay
 # Salida: No hay
-def player_choice():
+def player_choice() -> None:
     # Se consultan los nombres de los jugadores
     global players
     global pokemon_ids
@@ -58,7 +58,7 @@ def player_choice():
 # Función: Consultar la cantidad de pokemons en el equipo
 # Entrada: No hay
 # Salida: Número de pokemons
-def get_pokemon_team_lenght():
+def get_pokemon_team_lenght() -> int:
     # Se consulta la cantidad de pokemons a utilizar
     while True:
         try:
@@ -77,7 +77,7 @@ def get_pokemon_team_lenght():
 # Función: Buscar los ids de los pokemon para cada equipo
 # Entrada: No hay
 # Salida: Número de pokemons
-def search_pokemon_id(pokemons_lenght):
+def search_pokemon_id(pokemons_lenght:int) -> None:
     global players
     global pokemon_ids
     # Se consultan los pokemon para cada jugador
@@ -112,7 +112,7 @@ def search_pokemon_id(pokemons_lenght):
 # Función: Crear los equipos pokemon
 # Entrada: No hay
 # Salida: No hay
-def create_team():
+def create_team() -> None:
     global pokemons
     global players
     global pokemon_ids
@@ -154,14 +154,11 @@ search_pokemon_id(pokemons_lenght)
 os.system('cls')
 create_team()
 
+# Se limpia la pantalla de la consola
+os.system('cls')
+obj_batalla = Batalla()
 
-# Imprimimos los datos de los pokemon de cada jugador
-for player in players:
-    print(player)
-    for pokemon in pokemons[player]:
-        print(pokemon.get_info())
-        print("STATS")
-        print(pokemon.get_stats())
-        print("\n==================\n")
-    print("\n==================\n")
-    print()
+# Registramos los equipos en el objeto de batalla
+obj_batalla.set_teams(pokemons)
+# Mostramos los equipos
+obj_batalla.show_teams()
