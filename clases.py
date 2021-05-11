@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Autor: Cristian Sáez Mardones
 # Fecha: 18-04-2021
-# Versión: 2.0.0
+# Versión: 2.0.1
 # Objetivo: Crear un juego de batallas pokemon
 
 # Importación de archivo
@@ -115,15 +115,17 @@ class Batalla:
     # Método: Inicializar al objeto batalla
     # Entrada: No hay
     # Salida: No hay
-    def __init__(self):
+    def __init__(self) -> None:
         self.__turno = 0
+        self.__teams = None
+        print("Batalla inciada")
     
 
     #####################################################################
     # Método: Obtener los turnos transcurridos
     # Entrada: No hay
     # Salida: Turno
-    def get_turno(self):
+    def get_turno(self) -> dict:
         return self.__turno
     
 
@@ -131,5 +133,28 @@ class Batalla:
     # Método: Inicializar al objeto batalla
     # Entrada: No hay
     # Salida: No hay
-    def set_turno(self):
+    def set_turno(self) -> None:
         self.__turno += 1
+    
+
+    #####################################################################
+    # Método: Registrar los jugadores en la batalla junto a sus equipos
+    # Entrada: Diccionario con jugadores y equipos
+    # Salida: No hay
+    def set_teams(self, teams:dict) -> None:
+        self.__teams = teams
+    
+
+    #####################################################################
+    # Método: Registrar los jugadores en la batalla junto a sus equipos
+    # Entrada: Diccionario con jugadores y equipos
+    # Salida: No hay
+    def show_teams(self) -> None:
+        for player in self.__teams:
+            print(player.upper())
+            for pokemon in self.__teams[player]:
+                print(pokemon.get_name())
+                print(pokemon.get_types())
+                print("\n-------------------\n")
+            print("\n==================\n")
+            print()
