@@ -13,11 +13,11 @@
 
 ## Importaciones ##
 # Clase para definir un Pokemon
-from clases import Pokemon, Batalla
+from .clases import Pokemon, Batalla
 # Función que configura los stats base del pokemon
-from conf import base_stats
+from .conf import base_stats
 # Clase para conectarse a la bbdd
-from conexiones import Conexion
+from .conexiones import Conexion
 ## Bibliotecas ##
 # Biblioteca para el manejo del so
 import os
