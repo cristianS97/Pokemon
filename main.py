@@ -160,5 +160,7 @@ obj_batalla = Batalla()
 
 # Registramos los equipos en el objeto de batalla
 obj_batalla.set_teams(pokemons)
+# Seleccionamos el jugador que incia
+obj_batalla.get_starter_player()
 # Mostramos los equipos
 obj_batalla.show_teams()
