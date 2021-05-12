@@ -19,7 +19,7 @@ import os
 # Biblioteca para el manejo de ficheros json
 import json
 
-from conf import URL_API
+from .conf import URL_API
 
 #####################################################################
 # Función: Obtener los tipos de los pokemon de la api

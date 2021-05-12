@@ -239,7 +239,7 @@ obj_conexion = Conexion()
 
 if __name__ == '__main__':
     # Funciones para consultar la API
-    from consultas_api import *
+    from .consultas_api import *
 
     obj_conexion.crear_tablas()
 

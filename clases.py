@@ -15,7 +15,7 @@
 # Librería con funciones matematicas
 import math
 # Clase para conectarse a la bbdd
-from conexiones import Conexion
+from .conexiones import Conexion
 # Biblioteca para la obtención de números aleatorios y selección aleatoria de un iterable
 import random
 
