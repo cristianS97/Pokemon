@@ -16,6 +16,9 @@
 import math
 # Clase para conectarse a la bbdd
 from conexiones import Conexion
+# Biblioteca para la obtención de números aleatorios y selección aleatoria de un iterable
+import random
+
 
 #####################################################################
 # Clase que define una entidad de pokemon
@@ -118,6 +121,8 @@ class Batalla:
     def __init__(self) -> None:
         self.__turno = 0
         self.__teams = None
+        self.__players = None
+        self.__starter_player = None
         print("Batalla inciada")
     
 
@@ -143,6 +148,16 @@ class Batalla:
     # Salida: No hay
     def set_teams(self, teams:dict) -> None:
         self.__teams = teams
+        self.__players = list(self.__teams.keys())
+    
+
+    #####################################################################
+    # Método: Seleccionar que entrenador inicia
+    # Entrada: No hay
+    # Salida: No hay
+    def get_starter_player(self):
+        self.__starter_player = random.choice(self.__players)
+        print(f"The starter player is: {self.__starter_player}")
     
 
     #####################################################################
@@ -150,7 +165,7 @@ class Batalla:
     # Entrada: Diccionario con jugadores y equipos
     # Salida: No hay
     def show_teams(self) -> None:
-        for player in self.__teams:
+        for player in self.__players:
             print(player.upper())
             for pokemon in self.__teams[player]:
                 print(pokemon.get_name())

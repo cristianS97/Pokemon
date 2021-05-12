@@ -16,8 +16,7 @@
 import sqlite3
 # Biblioteca para manejo de rutas
 from pathlib import Path
-# Funciones para consultar la API
-from consultas_api import *
+
 
 ruta = Path(__file__).resolve().parent
 
@@ -239,6 +238,8 @@ class Conexion:
 obj_conexion = Conexion()
 
 if __name__ == '__main__':
+    # Funciones para consultar la API
+    from consultas_api import *
 
     obj_conexion.crear_tablas()
 
