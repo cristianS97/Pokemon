@@ -18,7 +18,7 @@ import requests
 import os
 # Biblioteca para el manejo de ficheros json
 import json
-
+# Fichero de configuraciones de la aplicación
 from .conf import URL_API
 
 #####################################################################
