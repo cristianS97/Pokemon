@@ -13,11 +13,11 @@
 
 ## Importaciones ##
 # Clase para definir un Pokemon
-from .clases import Pokemon, Batalla
+from clases import Pokemon, Batalla
 # Función que configura los stats base del pokemon
-from .conf import base_stats
+from conf import base_stats
 # Clase para conectarse a la bbdd
-from .conexiones import Conexion
+from conexiones import Conexion
 ## Bibliotecas ##
 # Biblioteca para el manejo del so
 import os
@@ -160,7 +160,17 @@ obj_batalla = Batalla()
 
 # Registramos los equipos en el objeto de batalla
 obj_batalla.set_teams(pokemons)
-# Seleccionamos el jugador que incia
+# Seleccionamos el jugador que inicia
 obj_batalla.get_starter_player()
 # Mostramos los equipos
 obj_batalla.show_teams()
+# Verificamos si la batalla puede continuar
+while obj_batalla.battle_can_continue():
+    print('Batalla continua')
+    player_attack = players[0]
+    pokemon_attack = 0
+    player_received = players[1]
+    pokemon_received = 0
+    obj_batalla.do_attack(player_attack, pokemon_attack, player_received, pokemon_received)
+
+print('End of battle')

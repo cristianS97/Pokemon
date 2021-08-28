@@ -15,7 +15,7 @@
 # Librería con funciones matematicas
 import math
 # Clase para conectarse a la bbdd
-from .conexiones import Conexion
+from conexiones import Conexion
 # Biblioteca para la obtención de números aleatorios y selección aleatoria de un iterable
 import random
 
@@ -87,6 +87,16 @@ class Pokemon:
         return data
 
     #####################################################################
+    # Método: Obtener los stats del pokemon en un diccionario
+    # Entrada: No hay
+    # Salida: Diccionario con los stats de un pokemon
+    def get_stats_dict(self) -> str:
+        data = dict()
+        for i, key in enumerate(self.__stats):
+            data[key] =  self.__stats[key]
+        return data
+
+    #####################################################################
     # Método: Modificar los stats del pokemon
     # Entrada: stat a modificar, tipo de modificación
     # Salida: no hay
@@ -108,6 +118,16 @@ class Pokemon:
             self.set_stat(stats_update[3], 1.1)
         if stats_update[2]:
             self.set_stat(stats_update[2], 0.9)
+
+    #####################################################################
+    # Método: Recibe daño
+    # Entrada: daño
+    # Salida: No hay
+    def get_damage(self, damage:int) -> None:
+        obj_conexion = Conexion()
+        self.__stats['hp'] -= damage
+        if self.__stats['hp'] < 0:
+            self.__stats['hp'] = 0
 
 
 #####################################################################
@@ -173,3 +193,31 @@ class Batalla:
                 print("\n-------------------\n")
             print("\n==================\n")
             print()
+    
+
+    #####################################################################
+    # Método: Realiza ataque
+    # Entrada: Jugador que ataca, Pokemon que ataca, Jugador que recibe ataque, Pokemon que recibe ataque
+    # Salida: no hay
+    def do_attack(self, player_attack, pokemon_attack, player_received, pokemon_received):
+        print(self.__teams[player_attack][pokemon_attack].get_name() + ' attack ' + self.__teams[player_received][pokemon_received].get_name())
+        print(self.__teams[player_received][pokemon_received].get_name() + ' hp: ' + str(self.__teams[player_received][pokemon_received].get_stats_dict()['hp']))
+        print(self.__teams[player_attack][pokemon_attack].get_name() + ' attack: ' + str(self.__teams[player_attack][pokemon_attack].get_stats_dict()['attack']))
+        damage = self.__teams[player_attack][pokemon_attack].get_stats_dict()['attack']
+        self.__teams[player_received][pokemon_received].get_damage(damage)
+        print(self.__teams[player_received][pokemon_received].get_name() + ' hp: ' + str(self.__teams[player_received][pokemon_received].get_stats_dict()['hp']))
+
+
+    #####################################################################
+    # Método: Verifica si la battala puede continuar
+    # Entrada: No hay
+    # Salida: Bolleano
+    def battle_can_continue(self):
+        for player in self.__players:
+            cuenta = 0
+            for pokemon in self.__teams[player]:
+                if pokemon.get_stats_dict()['hp'] > 0:
+                    cuenta += 1
+            if cuenta == 0:
+                return False
+        return True
